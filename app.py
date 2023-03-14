@@ -55,6 +55,7 @@ def get_all_referrals():
     data = [dict(zip(columns, row)) for row in results]
     
     return jsonify(data)
+# test
 
 @app.route('/api/v1/resources/referrals', methods=['POST'])
 def post_referral():
