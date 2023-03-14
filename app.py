@@ -92,7 +92,7 @@ def post_referral():
     
     print("record inserted")
     
-    return jsonify({'message': 'Referral added successfully', 'referral_id': referral_id})
+    return jsonify({'success': True, 'request_type': 'POST', 'submssion_ID': referral_id})
 
 if __name__ == '__main__':
     app.run(debug=True)
