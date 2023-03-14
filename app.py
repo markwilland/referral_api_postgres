@@ -1,4 +1,5 @@
 import os
+import json
 import psycopg2.pool
 from flask import Flask, g, jsonify, request
 from configparser import ConfigParser
@@ -53,8 +54,7 @@ def get_all_referrals():
     
     data = [dict(zip(columns, row)) for row in results]
     
-    return jsonify(data)
-# test
+    return json.dumps(data, indent=4)
 
 @app.route('/api/v1/resources/referrals', methods=['POST'])
 def post_referral():
@@ -83,7 +83,7 @@ def post_referral():
         )
     
     cur.execute(insert_statement, insert_data)
-    referral_id = cur.lastrowid
+    referral_id = cur.cur.fetchone()[0]
     
     conn.commit()
     cur.close()
