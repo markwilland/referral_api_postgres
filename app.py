@@ -83,7 +83,7 @@ def post_referral():
         )
     
     cur.execute(insert_statement, insert_data)
-    referral_id = cur.cur.fetchone()[0]
+    referral_id = cur.fetchone()[0]
     
     conn.commit()
     cur.close()
