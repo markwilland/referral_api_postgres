@@ -1,3 +1,4 @@
+import os
 import psycopg2.pool
 from flask import Flask, g, jsonify, request
 from configparser import ConfigParser
@@ -6,10 +7,8 @@ app = Flask(__name__)
 
 def get_db():
     if 'db' not in g:
-        db_config = ConfigParser()
-        db_config.read('database.ini')
-        params = {k: v for k, v in db_config.items(r'referrals')}
-        pool = psycopg2.pool.SimpleConnectionPool(1, 10, **params)
+        db_url = os.environ.get('DATABASE_URL')
+        pool = psycopg2.pool.SimpleConnectionPool(1, 10, dsn=db_url)
         g.db = pool.getconn()
     
     return g.db
