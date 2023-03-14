@@ -54,7 +54,7 @@ def get_all_referrals():
     
     data = [dict(zip(columns, row)) for row in results]
     
-    return json.dumps(data, indent=4)
+    return json.dumps(data, indent=4, ensure_ascii=False)
 
 @app.route('/api/v1/resources/referrals', methods=['POST'])
 def post_referral():
@@ -67,7 +67,8 @@ def post_referral():
     
     insert_statement = """
                     INSERT INTO referrals (firm_code, file_type, name, email, phone, street_address_1, street_address_2, city, province, postal_code)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING id"""
                     
     insert_data = (
         data['firm_code'],
