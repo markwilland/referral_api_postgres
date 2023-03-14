@@ -94,4 +94,5 @@ def post_referral():
     
     return jsonify({'message': 'Referral added successfully', 'referral_id': referral_id})
 
-app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
